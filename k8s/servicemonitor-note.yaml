@@ -1,0 +1,4 @@
+# Optional note:
+# If Prometheus Operator is available, create a ServiceMonitor
+# targeting the task15-api service and the /metrics endpoint.
+# This file is intentionally a documentation placeholder.
