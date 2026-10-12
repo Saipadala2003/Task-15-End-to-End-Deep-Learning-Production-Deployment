@@ -1,0 +1,22 @@
+services:
+  task15-api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    image: task15-cifar-api:v1
+    environment:
+      APP_VERSION: v1
+    ports:
+      - "5000:5000"
+
+  task15-ui:
+    build:
+      context: .
+      dockerfile: ui/Dockerfile
+    image: task15-cifar-ui:v1
+    environment:
+      TASK15_API_URL: http://task15-api:5000
+    depends_on:
+      - task15-api
+    ports:
+      - "8501:8501"
