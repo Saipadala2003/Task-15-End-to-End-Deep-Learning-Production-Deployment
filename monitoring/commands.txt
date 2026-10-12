@@ -1,0 +1,10 @@
+kubectl get all -n task15
+kubectl get pods -n task15 -o wide
+kubectl get rs -n task15
+kubectl get hpa -n task15
+kubectl top nodes
+kubectl top pods -n task15
+kubectl logs -n task15 deployment/task15-api
+kubectl logs -n task15 deployment/task15-ui
+kubectl exec -n task15 deployment/task15-ui -- python -c "import urllib.request; print(urllib.request.urlopen('http://task15-api:5000/health').read().decode())"
+kubectl exec -n task15 deployment/task15-ui -- python -c "import urllib.request; print(urllib.request.urlopen('http://task15-api:5000/metrics').read().decode())"
