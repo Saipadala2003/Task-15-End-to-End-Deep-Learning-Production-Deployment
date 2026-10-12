@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task15-ui
+  namespace: task15
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: task15-ui
+  template:
+    metadata:
+      labels:
+        app: task15-ui
+    spec:
+      containers:
+        - name: ui
+          image: task15-cifar-ui:v1
+          imagePullPolicy: Never
+          env:
+            - name: TASK15_API_URL
+              value: "http://task15-api:5000"
+          ports:
+            - containerPort: 8501
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "768Mi"
+          readinessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: 8501
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: 8501
+            initialDelaySeconds: 40
+            periodSeconds: 20
